@@ -27,6 +27,7 @@ template <typename T>
 HashTable<T>::~HashTable()
 {
 	//TODO
+	clean();
 }
 
 template <typename T>
