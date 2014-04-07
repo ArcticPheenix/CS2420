@@ -7,14 +7,14 @@ class HashTable
 private:
 	const int SIZE = 26;	// Arbitrary size. Refers to number of letters in English alphabet.
 	int* dataArray;
-	int hash(string key);
-	double retrieve(string key);
+	int hash(std::string key);
+	double retrieve(std::string key);
 public:
 	HashTable();
 	~HashTable();
 	void clear();
-	void insert(string key, double value);
-	const double operator[](string key) const;
+	void insert(std::string key, double value);
+	double& operator[](std::string key);
 };
 
 template <typename T>
@@ -30,7 +30,7 @@ HashTable<T>::~HashTable()
 }
 
 template <typename T>
-int HashTable<T>::hash(string key)
+int HashTable<T>::hash(std::string key)
 {
 	//TODO
 	int result = 0;
@@ -38,7 +38,7 @@ int HashTable<T>::hash(string key)
 }
 
 template <typename T>
-double HashTable<T>::retrieve(string key)
+double HashTable<T>::retrieve(std::string key)
 {
 	//TODO
 	double result = 0;
@@ -52,14 +52,14 @@ void HashTable<T>::clear()
 }
 
 template <typename T>
-void HashTable<T>::insert(string key, double value)
+void HashTable<T>::insert(std::string key, double value)
 {
 	//TODO
 }
 
 template <typename T>
-const double& operator[](string key) const
+double& HashTable<T>::operator[](std::string key)
 {
-	//TODO
+	return retrieve(key);
 }
 #endif
