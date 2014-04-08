@@ -1,10 +1,8 @@
 #include "Node.h"
 
-namespace list_1
+Node::Node(std::string key, double value)
 {
-    Node::Node(int d)
-    {
-        this->data = d;
-        this->next = nullptr;
-    }
+    this->key = key;
+	this->value = value;
+    this->next = nullptr;
 }

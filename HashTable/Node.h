@@ -1,16 +1,15 @@
 #ifndef LIST_NODE_H
 #define LIST_NODE_H
+#include <string>
 
-namespace list_1
+struct Node
 {
-	struct Node
-	{
-		int data;
-		Node *next;
+	std::string key;
+	double value;
+	Node *next;
 
-		// Constructor
-		// Postcondition: 
-		Node (int d);
-	};
-}
+	// Constructor
+	// Postcondition: 
+	Node (std::string key, double value);
+};
 #endif

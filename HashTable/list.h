@@ -3,38 +3,33 @@
 #include "Node.h"
 #include "Iterator.h"
 
-namespace list_1
+class list
 {
-	class list
-    {
-    private:
-		Node* head;
-    public:
-        // CONSTRUCTOR
-        list( );
+private:
+	Node* head;
+public:
+    // CONSTRUCTOR
+    list( );
         
-		// postcondition: all nodes in the list are destroyed.
-		~list();
+	// postcondition: all nodes in the list are destroyed.
+	~list();
         
-        // MODIFICATION MEMBER FUNCTIONS
-		//postcondition: entry is added to the front of the list
-        void insert_front(const int& entry);
+    // MODIFICATION MEMBER FUNCTIONS
+	//postcondition: entry is added to the front of the list
+    void insert_front(const int& entry);
         
-        //postcondition: entry is added to the back of the list
-        void add_back(const int& entry);
+    //postcondition: entry is added to the back of the list
+    void add_back(const int& entry);
         
-		// postcondition: all nodes with data == entry are removed from the list
-        void remove_all(const int& entry);
+	// postcondition: all nodes with data == entry are removed from the list
+    void remove_all(const int& entry);
         
-		// postcondition: an iterator is created pointing to the head of the list
-		Iterator begin(void);
+	// postcondition: an iterator is created pointing to the head of the list
+	Iterator begin(void);
 		
-		// CONSTANT MEMBER FUNCTIONS
-		// postcondition: the size of the list is returned
-        int size( ) const;
-	};
-
-}
-
+	// CONSTANT MEMBER FUNCTIONS
+	// postcondition: the size of the list is returned
+    int size( ) const;
+};
 #endif
 

@@ -20,13 +20,12 @@ public:
 template <typename T>
 HashTable<T>::HashTable()
 {
-	//TODO
+	dataArray = new int[SIZE];
 }
 
 template <typename T>
 HashTable<T>::~HashTable()
 {
-	//TODO
 	clean();
 }
 
@@ -34,6 +33,8 @@ template <typename T>
 int HashTable<T>::hash(std::string key)
 {
 	//TODO
+	// Generate hash value from given key.
+	// Ensure that resulting value fits wihin SIZE-1;
 	int result = 0;
 	return result;
 }
@@ -42,6 +43,7 @@ template <typename T>
 double HashTable<T>::retrieve(std::string key)
 {
 	//TODO
+	// Lookup 'key' in hash table. If 'key' is found, return value.
 	double result = 0;
 	return result;
 }
@@ -50,12 +52,17 @@ template <typename T>
 void HashTable<T>::clear()
 {
 	//TODO
+	// Iterate over every list in every element of dataArray.
+	// Remove lists attached to array elements.
+	// Delete array.
 }
 
 template <typename T>
 void HashTable<T>::insert(std::string key, double value)
 {
 	//TODO
+	// Hash 'key' to find storage location in dataArray.
+	// Append key/value pair to list.
 }
 
 template <typename T>
