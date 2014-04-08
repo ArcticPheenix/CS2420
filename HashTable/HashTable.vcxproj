@@ -116,15 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="HashTable.h" />
-    <ClInclude Include="Iterator.h" />
-    <ClInclude Include="list.h" />
     <ClInclude Include="Node.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp" />
-    <ClCompile Include="Iterator.cpp" />
-    <ClCompile Include="list.cpp" />
-    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
