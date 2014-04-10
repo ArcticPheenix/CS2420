@@ -21,7 +21,7 @@ public:
 template <typename T>
 HashTable<T>::HashTable()
 {
-	dataArray = new Node*[SIZE];
+	dataArray = new Node<T>*[SIZE];
 	
 	// Initialize node* in each element to nullptr.
 	for (int i = 0; i < SIZE; i++)
@@ -34,6 +34,7 @@ template <typename T>
 HashTable<T>::~HashTable()
 {
 	clear();
+	delete[] dataArray;
 }
 
 // Generate hash value from given key.
@@ -58,7 +59,7 @@ double HashTable<T>::retrieve(std::string key)
 	// Lookup 'key' in hash table. If 'key' is found, return value.
 	int indexValue = hash(key);
 	if ((indexValue < 0) || (indexValue >= SIZE)) { return; }
-	Node* tempNode = dataArray[indexValue];
+	Node<T>* tempNode = dataArray[indexValue];
 	while (tempNode != nullptr)
 	{
 		if (tempNode->key == key) { return tempNode->value; }
@@ -74,7 +75,18 @@ double HashTable<T>::retrieve(std::string key)
 template <typename T>
 void HashTable<T>::clear()
 {
-	//TODO
+	for (int i = 0; i < SIZE; i++)
+	{
+		Node<T>* tempNode = dataArray[i];
+		Node<T>* tempNode2 = nullptr;
+		if (tempNode == nullptr) { continue; }
+		while (tempNode != nullptr)
+		{
+			tempNode2 = tempNode->next;
+			delete tempNode;
+			tempNode = tempNode2;
+		}
+	}
 }
 
 // Hash 'key' to find storage location in dataArray.
@@ -83,7 +95,7 @@ template <typename T>
 void HashTable<T>::insert(std::string key, double value)
 {
 	int hashValue = hash(key);
-	Node* tempNode = dataArray[hashValue];
+	Node<T>* tempNode = dataArray[hashValue];
 	if (tempNode == nullptr)
 	{
 		tempNode = new Node(key, value);
