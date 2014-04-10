@@ -7,7 +7,7 @@ class HashTable
 {
 private:
 	const int SIZE = 26;	// Arbitrary size. Refers to number of letters in English alphabet.
-	Node* dataArray;
+	Node** dataArray;
 	int hash(std::string key);
 	double retrieve(std::string key);
 public:
@@ -21,7 +21,7 @@ public:
 template <typename T>
 HashTable<T>::HashTable()
 {
-	dataArray = new Node[SIZE];
+	dataArray = new Node*[SIZE];
 	
 	// Initialize node* in each element to nullptr.
 	for (int i = 0; i < SIZE; i++)
