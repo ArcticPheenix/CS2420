@@ -7,15 +7,15 @@ class HashTable
 {
 private:
 	const int SIZE = 26;	// Arbitrary size. Refers to number of letters in English alphabet.
-	Node** dataArray;
+	Node<T>** dataArray;
 	int hash(std::string key);
-	double retrieve(std::string key);
+	T retrieve(std::string key);
 public:
 	HashTable();
 	~HashTable();
 	void clear();
-	void insert(std::string key, double value);
-	double& operator[](std::string key);
+	void insert(std::string key, T value);
+	T& operator[](std::string key);
 };
 
 template <typename T>
@@ -54,7 +54,7 @@ int HashTable<T>::hash(std::string key)
 }
 
 template <typename T>
-double HashTable<T>::retrieve(std::string key)
+T HashTable<T>::retrieve(std::string key)
 {
 	// Lookup 'key' in hash table. If 'key' is found, return value.
 	int indexValue = hash(key);
@@ -65,7 +65,7 @@ double HashTable<T>::retrieve(std::string key)
 		if (tempNode->key == key) { return tempNode->value; }
 		else { tempNode = tempNode->next; }
 	}
-	double result = 0;
+	T result = 0;
 	return result;
 }
 
@@ -92,7 +92,7 @@ void HashTable<T>::clear()
 // Hash 'key' to find storage location in dataArray.
 // Append key/value pair to list.
 template <typename T>
-void HashTable<T>::insert(std::string key, double value)
+void HashTable<T>::insert(std::string key, T value)
 {
 	int hashValue = hash(key);
 	Node<T>* tempNode = dataArray[hashValue];
@@ -111,7 +111,7 @@ void HashTable<T>::insert(std::string key, double value)
 }
 
 template <typename T>
-double& HashTable<T>::operator[](std::string key)
+T& HashTable<T>::operator[](std::string key)
 {
 	return retrieve(key);
 }
