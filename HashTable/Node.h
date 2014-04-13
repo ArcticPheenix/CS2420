@@ -5,6 +5,7 @@
 template <typename T>
 class Node
 {
+public:
 	std::string key;
 	T value;
 	Node<T>* next;
