@@ -9,10 +9,7 @@ public:
 	std::string key;
 	T value;
 	Node<T>* next;
-
-	// Constructor
-	// Postcondition: 
-	Node (std::string key, T value);
+	Node(std::string key, T value);
 };
 
 template <typename T>

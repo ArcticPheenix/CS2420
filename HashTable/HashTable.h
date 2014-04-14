@@ -45,7 +45,7 @@ int HashTable<T>::hash(std::string key)
 	const int HASH_MULTIPLIER = 4091;	// Prime value to assist with lowered collision probabilities.
 	int asciiValue = 0;
 	int result = 0;
-	for (int i = 0; i < key.size(); i++)
+	for (unsigned i = 0; i < key.size(); i++)
 	{
 		asciiValue = asciiValue + (int)key[i];
 	}
@@ -98,7 +98,7 @@ void HashTable<T>::insert(std::string key, T value)
 	Node<T>* tempNode = dataArray[hashValue];
 	if (tempNode == nullptr)
 	{
-		tempNode = new Node(key, value);
+		tempNode = new Node<T>(key, value);
 	}
 	else
 	{
@@ -106,7 +106,7 @@ void HashTable<T>::insert(std::string key, T value)
 		{
 			tempNode = tempNode->next;
 		}
-		tempNode = new Node(key, value);
+		tempNode = new Node<T>(key, value);
 	}
 }
 
