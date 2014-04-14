@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdlib.h>
 #include "HashTable.h"
 
 HashTable<double>& initHashTable();
@@ -57,7 +58,16 @@ std::ifstream* readFile(std::string file)
 */
 void parseElements(std::ifstream& input, HashTable<double>& table)
 {
-	//TODO
+	std::string elementRecord;
+	std::string element;
+	std::string weight;
+	while (input.good())
+	{
+		input >> element;
+		input >> weight;
+		double w = atof(weight.c_str());
+		table.insert(element, w);
+	}
 }
 
 /*
