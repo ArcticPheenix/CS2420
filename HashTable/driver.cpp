@@ -8,11 +8,29 @@ HashTable<double>& initHashTable();
 std::ifstream* readFile(std::string file);
 void parseElements(std::ifstream& input, HashTable<double>& table);
 void parseFormulas(std::ifstream& input, HashTable<double>& table);
-double computeAtomicSum(std::string formula);
+double computeAtomicSum(std::string formula, HashTable<double>& table);
 
 int main()
 {
 	HashTable<double>& myTable = initHashTable();
+	std::cout << "Reading in file: forumulas.txt" << std::endl;
+	std::ifstream* formulasFileStream = readFile("formulas.txt");
+	if (formulasFileStream != nullptr)
+	{
+		std::cout << "Read successful. Parsing file..." << std::endl;
+		parseFormulas(*formulasFileStream, myTable);
+		formulasFileStream->close();
+		formulasFileStream = nullptr;
+		delete formulasFileStream;
+	}
+	else
+	{
+		std::cout << "Error with input file stream." << std::endl;
+		formulasFileStream->close();
+		formulasFileStream = nullptr;
+		delete formulasFileStream;
+		return -1;
+	}
 	return 0;
 }
 
@@ -32,11 +50,17 @@ HashTable<double>& initHashTable()
 		std::cout << "Read successful. Parsing file..." << std::endl;
 		parseElements(*pteFileStream, myTable);
 		std::cout << "Hash table created and populated." << std::endl;
+		pteFileStream->close();
+		pteFileStream = nullptr;
+		delete pteFileStream;
 		return myTable;
 	}
 	else
 	{
 		std::cout << "Error with input file stream." << std::endl;
+		pteFileStream->close();
+		pteFileStream = nullptr;
+		delete pteFileStream;
 		return myTable;
 	}
 }
@@ -77,11 +101,20 @@ void parseElements(std::ifstream& input, HashTable<double>& table)
 */
 void parseFormulas(std::ifstream& input, HashTable<double>& table)
 {
-	//TODO
+	std::string formula;
+	while (input.good())
+	{
+		input >> formula;
+		computeAtomicSum(formula, table);
+	}
 }
 
-double computeAtomicSum(std::string formula)
+double computeAtomicSum(std::string formula, HashTable<double>& table)
 {
 	//TODO
-	return -1.0;
+	for (int i = 0; i < formula.size(); i++)
+	{
+
+	}
+	return -2.0;
 }
