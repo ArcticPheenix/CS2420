@@ -6,7 +6,7 @@ template <typename T>
 class HashTable
 {
 private:
-	const int SIZE = 26;	// Arbitrary size. Refers to number of letters in English alphabet.
+	static const int SIZE = 26;	// Arbitrary size. Refers to number of letters in English alphabet.
 	Node<T>** dataArray;
 	int hash(std::string key);
 	T retrieve(std::string key);
