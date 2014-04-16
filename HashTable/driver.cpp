@@ -1,11 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <stdlib.h>
 #include "HashTable.h"
 
 HashTable<double>& initHashTable();
 std::ifstream* readFile(std::string file);
+bool isNumber(char value);
+bool isUpper(char value);
+bool isLower(char value);
 void parseElements(std::ifstream& input, HashTable<double>& table);
 void parseFormulas(std::ifstream& input, HashTable<double>& table);
 double computeAtomicSum(std::string formula, HashTable<double>& table);
@@ -31,6 +35,7 @@ int main()
 		delete formulasFileStream;
 		return -1;
 	}
+	system("PAUSE");
 	return 0;
 }
 
@@ -105,16 +110,71 @@ void parseFormulas(std::ifstream& input, HashTable<double>& table)
 	while (input.good())
 	{
 		input >> formula;
-		computeAtomicSum(formula, table);
+		double result = computeAtomicSum(formula, table);
+		std::cout << "Atomic weight of " << formula << " is: " << result << std::endl;
 	}
 }
 
 double computeAtomicSum(std::string formula, HashTable<double>& table)
 {
-	//TODO
-	for (int i = 0; i < formula.size(); i++)
+	double currentSum = 0;
+	int multiplier = 1;
+	std::stringstream ss;
+	for (unsigned i = 0; i < formula.size(); i++)
 	{
-
+		if (isUpper(formula[i]))
+		{
+			if (isUpper(formula[i + 1])) { continue; }
+			else if (isLower(formula[i + 1]))
+			{
+				ss.clear();
+				ss << formula[i] << formula[i + 1];
+				currentSum += table[ss.str()];	// Retrieve value of key, and add to currentSum
+			}
+			else if (isNumber(formula[i + 1])) { continue; }
+			else
+			{
+				ss.clear();
+				ss << formula[i];
+				currentSum += table[ss.str()];	// Retrieve value of key, and add to currentSum
+			}
+		}
+		else if (isLower(formula[i])) { continue; }
+		else if (isNumber(formula[i]))
+		{
+			if (isNumber(formula[i + 1]))
+			{
+				ss.clear();
+				ss << formula[i] << formula[i + 1];
+				multiplier = atoi(ss.str().c_str());
+				currentSum *= multiplier;
+			}
+			else
+			{
+				ss.clear();
+				ss << formula[i];
+				multiplier = atoi(ss.str().c_str());
+				currentSum *= multiplier;
+			}
+		}
 	}
-	return -2.0;
+	return currentSum;
+}
+
+bool isNumber(char value)
+{
+	if (((int)value > 47) && ((int)value < 58)) { return true; }
+	else { return false; }
+}
+
+bool isUpper(char value)
+{
+	if (((int)value > 64) && ((int)value < 91)) { return true; }
+	else { return false; }
+}
+
+bool isLower(char value)
+{
+	if (((int)value > 96) && ((int)value < 123)) { return true; }
+	else { return false; }
 }

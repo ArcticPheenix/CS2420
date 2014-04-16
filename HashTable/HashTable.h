@@ -15,7 +15,7 @@ public:
 	~HashTable();
 	void clear();
 	void insert(std::string key, T value);
-	T& operator[](std::string key);
+	T operator[](std::string key);
 };
 
 template <typename T>
@@ -58,7 +58,7 @@ T HashTable<T>::retrieve(std::string key)
 {
 	// Lookup 'key' in hash table. If 'key' is found, return value.
 	int indexValue = hash(key);
-	if ((indexValue < 0) || (indexValue >= SIZE)) { return; }
+	if ((indexValue < 0) || (indexValue >= SIZE)) { return 0; }
 	Node<T>* tempNode = dataArray[indexValue];
 	while (tempNode != nullptr)
 	{
@@ -111,7 +111,7 @@ void HashTable<T>::insert(std::string key, T value)
 }
 
 template <typename T>
-T& HashTable<T>::operator[](std::string key)
+T HashTable<T>::operator[](std::string key)
 {
 	return retrieve(key);
 }
