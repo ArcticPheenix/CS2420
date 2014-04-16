@@ -43,13 +43,14 @@ template <typename T>
 int HashTable<T>::hash(std::string key)
 {
 	const int HASH_MULTIPLIER = 4091;	// Prime value to assist with lowered collision probabilities.
+	int arraySize = SIZE;
 	int asciiValue = 0;
 	int result = 0;
 	for (unsigned i = 0; i < key.size(); i++)
 	{
 		asciiValue = asciiValue + (int)key[i];
 	}
-	result = (asciiValue * HASH_MULTIPLIER) % SIZE;
+	result = (asciiValue * HASH_MULTIPLIER) % arraySize;
 	return result;
 }
 

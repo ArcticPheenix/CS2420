@@ -131,7 +131,7 @@ double computeAtomicSum(std::string formula, HashTable<double>& table)
 				ss << formula[i] << formula[i + 1];
 				currentSum += table[ss.str()];	// Retrieve value of key, and add to currentSum
 			}
-			else if (isNumber(formula[i + 1])) { continue; }
+			//else if (isNumber(formula[i + 1])) { continue; }
 			else
 			{
 				ss.clear();
