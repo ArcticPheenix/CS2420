@@ -7,7 +7,7 @@ class HashTable
 {
 private:
 	static const int SIZE = 26;	// Arbitrary size. Refers to number of letters in English alphabet.
-	Node<T>** dataArray;
+	Node<T>* dataArray[SIZE];
 	int hash(std::string key);
 	T retrieve(std::string key);
 public:
@@ -21,12 +21,12 @@ public:
 template <typename T>
 HashTable<T>::HashTable()
 {
-	dataArray = new Node<T>*[SIZE];
+	//this->dataArray = new Node<T>*[SIZE];
 	
 	// Initialize node* in each element to nullptr.
 	for (int i = 0; i < SIZE; i++)
 	{
-		dataArray[i] = nullptr;
+		this->dataArray[i] = nullptr;
 	}
 }
 
@@ -34,7 +34,7 @@ template <typename T>
 HashTable<T>::~HashTable()
 {
 	clear();
-	delete[] dataArray;
+	//delete[] dataArray;
 }
 
 // Generate hash value from given key.
@@ -60,7 +60,7 @@ T HashTable<T>::retrieve(std::string key)
 	// Lookup 'key' in hash table. If 'key' is found, return value.
 	int indexValue = hash(key);
 	if ((indexValue < 0) || (indexValue >= SIZE)) { return 0; }
-	Node<T>* tempNode = dataArray[indexValue];
+	Node<T>* tempNode = this->dataArray[indexValue];
 	while (tempNode != nullptr)
 	{
 		if (tempNode->key == key) { return tempNode->value; }
@@ -100,6 +100,7 @@ void HashTable<T>::insert(std::string key, T value)
 	if (tempNode == nullptr)
 	{
 		tempNode = new Node<T>(key, value);
+		dataArray[hashValue] = tempNode;
 	}
 	else
 	{
