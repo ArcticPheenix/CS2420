@@ -1,3 +1,12 @@
+/*
+Name: Christopher Kelly
+Course:	CS2420
+Instructor:	Todd Peterson
+Project: HashTable
+
+I hereby declare that all code contain herin was written solely by me.
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,18 +14,18 @@
 #include <stdlib.h>
 #include "HashTable.h"
 
-HashTable<double>& initHashTable();
+HashTable<double>* initHashTable();
 std::ifstream* readFile(std::string file);
 bool isNumber(char value);
 bool isUpper(char value);
 bool isLower(char value);
-void parseElements(std::ifstream& input, HashTable<double>& table);
-void parseFormulas(std::ifstream& input, HashTable<double>& table);
-double computeAtomicSum(std::string formula, HashTable<double>& table);
+void parseElements(std::ifstream& input, HashTable<double>* table);
+void parseFormulas(std::ifstream& input, HashTable<double>* table);
+double computeAtomicSum(const std::string formula, HashTable<double>* table);
 
 int main()
 {
-	HashTable<double>& myTable = initHashTable();
+	HashTable<double>* myTable = initHashTable();
 	std::cout << "Reading in file: forumulas.txt" << std::endl;
 	std::ifstream* formulasFileStream = readFile("formulas.txt");
 	if (formulasFileStream != nullptr)
@@ -45,9 +54,9 @@ int main()
 	Store data in hash table
 	Return reference to valid hash table
 */
-HashTable<double>& initHashTable()
+HashTable<double>* initHashTable()
 {
-	HashTable<double>& myTable = HashTable<double>();
+	HashTable<double>* myTable = new HashTable<double>();
 	std::cout << "Reading in file: PeriodicTableElements.txt" << std::endl;
 	std::ifstream* pteFileStream = readFile("PeriodicTableElements.txt");
 	if (pteFileStream != nullptr)
@@ -85,7 +94,7 @@ std::ifstream* readFile(std::string file)
 	Parses input stream for periodic table data
 	Inserts parsed data into hash table
 */
-void parseElements(std::ifstream& input, HashTable<double>& table)
+void parseElements(std::ifstream& input, HashTable<double>* table)
 {
 	std::string elementRecord;
 	std::string element;
@@ -95,7 +104,7 @@ void parseElements(std::ifstream& input, HashTable<double>& table)
 		input >> element;
 		input >> weight;
 		double w = atof(weight.c_str());
-		table.insert(element, w);
+		table->insert(element, w);
 	}
 }
 
@@ -104,7 +113,7 @@ void parseElements(std::ifstream& input, HashTable<double>& table)
 	Computes approximate atomic weight of molecule
 	Prints result to console
 */
-void parseFormulas(std::ifstream& input, HashTable<double>& table)
+void parseFormulas(std::ifstream& input, HashTable<double>* table)
 {
 	std::string formula;
 	while (input.good())
@@ -115,7 +124,7 @@ void parseFormulas(std::ifstream& input, HashTable<double>& table)
 	}
 }
 
-double computeAtomicSum(std::string formula, HashTable<double>& table)
+double computeAtomicSum(const std::string formula, HashTable<double>* table)
 {
 	double currentSum = 0;
 	int multiplier = 1;
@@ -129,14 +138,14 @@ double computeAtomicSum(std::string formula, HashTable<double>& table)
 			{
 				ss.clear();
 				ss << formula[i] << formula[i + 1];
-				currentSum += table[ss.str()];	// Retrieve value of key, and add to currentSum
+				std::string keyValue = ss.str();
+				currentSum += table->operator[](keyValue);
 			}
-			//else if (isNumber(formula[i + 1])) { continue; }
 			else
 			{
 				ss.clear();
 				ss << formula[i];
-				currentSum += table[ss.str()];	// Retrieve value of key, and add to currentSum
+				currentSum += table->operator[](ss.str());
 			}
 		}
 		else if (isLower(formula[i])) { continue; }
@@ -151,11 +160,21 @@ double computeAtomicSum(std::string formula, HashTable<double>& table)
 			}
 			else
 			{
-				ss.clear();
-				ss << formula[i];
-				multiplier = atoi(ss.str().c_str());
+				multiplier = std::stoi(formula.substr(i, 1));
 				currentSum *= multiplier;
 			}
+		}
+		else if (formula[i] == '(')
+		{
+			int j = i;
+			int count = 1;
+			while (formula[j] != ')')
+			{
+				j++;
+				count++;
+			}
+			double subResult = computeAtomicSum(formula.substr(i + 1, count), table);
+			currentSum *= subResult;
 		}
 	}
 	return currentSum;

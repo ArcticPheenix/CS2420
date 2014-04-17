@@ -1,3 +1,12 @@
+/*
+Name: Christopher Kelly
+Course:	CS2420
+Instructor:	Todd Peterson
+Project: HashTable
+
+I hereby declare that all code contain herin was written solely by me.
+*/
+
 #ifndef HASHTABLE_CLASS_H
 #define HASHTABLE_CLASS_H
 #include <string>
@@ -108,7 +117,7 @@ void HashTable<T>::insert(std::string key, T value)
 		{
 			tempNode = tempNode->next;
 		}
-		tempNode = new Node<T>(key, value);
+		tempNode->next = new Node<T>(key, value);
 	}
 }
 

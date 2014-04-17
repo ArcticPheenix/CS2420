@@ -1,3 +1,12 @@
+/*
+Name: Christopher Kelly
+Course:	CS2420
+Instructor:	Todd Peterson
+Project: HashTable
+
+I hereby declare that all code contain herin was written solely by me.
+*/
+
 #ifndef LIST_NODE_H
 #define LIST_NODE_H
 #include <string>
