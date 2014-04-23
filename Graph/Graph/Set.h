@@ -2,8 +2,9 @@
 #define SET_CLASS_H
 #include "list.h"
 
-class Set : public list
+class Set
 {
+	list l;
 	Set();
 	~Set();
 	void insert(int n);
