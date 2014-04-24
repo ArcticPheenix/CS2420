@@ -4,7 +4,9 @@
 
 class Set
 {
-	list l;
+private:
+	list* l;
+public:
 	Set();
 	~Set();
 	void insert(int n);
