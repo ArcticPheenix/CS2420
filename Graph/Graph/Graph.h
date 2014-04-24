@@ -7,7 +7,8 @@ class Graph
 private:
 	static const int NUM_OF_NODES = 10;
 	int adjacencyMatrix[NUM_OF_NODES][NUM_OF_NODES];
-	bool visitTable[NUM_OF_NODES];
+	bool visitedTable[NUM_OF_NODES];
+	void resetVisitedTable();
 public:
 	Graph();
 	~Graph();

@@ -13,13 +13,21 @@ Graph::Graph()
 	// Initialize visit table
 	for (int k = 0; k < NUM_OF_NODES; k++)
 	{
-		visitTable[k] = false;
+		visitedTable[k] = false;
 	}
 }
 
 Graph::~Graph()
 {
 
+}
+
+void Graph::resetVisitedTable()
+{
+	for (int k = 0; k < NUM_OF_NODES; k++)
+	{
+		visitedTable[k] = false;
+	}
 }
 
 void Graph::add_edge(int weight, int v1, int v2)
@@ -46,7 +54,9 @@ void Graph::add_vertex(int v)
 
 void Graph::depthFirstSearch(int v)
 {
-
+	// Reset visitedTable
+	// Recursively visit each vertex connected to 'v'
+	// so long as it hasn't been visited before
 }
 
 void Graph::findShortestPath(int v)
