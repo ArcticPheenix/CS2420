@@ -5,18 +5,20 @@
 class Graph
 {
 private:
-	static const int NUM_OF_NODES = 10;
-	int adjacencyMatrix[NUM_OF_NODES][NUM_OF_NODES];
-	bool visitedTable[NUM_OF_NODES];
+	int NUM_OF_NODES = 10;
+	int** adjacencyMatrix;
+	bool* visitedTable;
 	void resetVisitedTable();
+	void dfsHelper(int v, bool* visitedArray);
 public:
 	Graph();
+	Graph(int initSize);
 	~Graph();
 	void add_edge(int weight, int v1, int v2);
 	void add_vertex(int v);
-	void depthFirstSearch(int v);
-	void findShortestPath(int v);
-	bool is_edge();
+	void depthFirstSearch(int v, bool* visitedArray);
+	void findShortestPath(int v, bool* visitedArray, Set* neighborSet);
+	bool is_edge(int v1, int v2);
 	Set* neighbors(int v);
 };
 

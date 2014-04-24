@@ -2,6 +2,12 @@
 #include "Graph.h"
 Graph::Graph()
 {
+	// Allocate memory for default graph
+	adjacencyMatrix = new int*[NUM_OF_NODES];
+	for (int i = 0; i < NUM_OF_NODES; i++)
+	{
+		adjacencyMatrix[i] = new int[NUM_OF_NODES];
+	}
 	// Initialize adjacency matrix
 	for (int i = 0; i < NUM_OF_NODES; i++)
 	{
@@ -17,9 +23,19 @@ Graph::Graph()
 	}
 }
 
+Graph::Graph(int initSize)
+{
+	NUM_OF_NODES = initSize;
+	
+}
+
 Graph::~Graph()
 {
-
+	for (int i = 0; i < NUM_OF_NODES; ++i)
+	{
+		delete[] adjacencyMatrix[i];
+	}
+	delete[] adjacencyMatrix;
 }
 
 void Graph::resetVisitedTable()
@@ -52,20 +68,43 @@ void Graph::add_vertex(int v)
 
 }
 
-void Graph::depthFirstSearch(int v)
+void Graph::depthFirstSearch(int v, bool* visitedArray)
 {
 	// Reset visitedTable
 	// Recursively visit each vertex connected to 'v'
 	// so long as it hasn't been visited before
+	resetVisitedTable();
+	std::cout << "Executing Depth First Search: ";
+	dfsHelper(v, visitedTable);
 }
 
-void Graph::findShortestPath(int v)
+void Graph::dfsHelper(int v, bool* visitedArray)
+{
+	if (v >= NUM_OF_NODES) { return; }
+	else if (visitedArray[v] == true) { return; }
+	else
+	{
+		visitedArray[v] = true;
+		std::cout << v << ", ";
+		for (int i = 0; i < NUM_OF_NODES; ++i)
+		{
+			if (adjacencyMatrix[v][i] = -1) { continue; }
+			else
+			{
+				dfsHelper(i, visitedArray);
+			}
+		}
+	}
+}
+
+void Graph::findShortestPath(int v, bool* visitedArray, Set* neighborSet)
 {
 
 }
 
-bool Graph::is_edge()
+bool Graph::is_edge(int v1, int v2)
 {
+	if (adjacencyMatrix[v1][v2] != -1) { return true; }
 	return false;
 }
 
