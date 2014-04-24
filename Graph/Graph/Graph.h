@@ -16,7 +16,7 @@ public:
 	void depthFirstSearch(int v);
 	void findShortestPath(int v);
 	bool is_edge();
-	Set neighbors(int v);
+	Set* neighbors(int v);
 };
 
 #endif
