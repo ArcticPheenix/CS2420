@@ -1,3 +1,12 @@
+/*
+Name:	Christopher Kelly
+Course:	CS2420
+Instructor:	Todd Peterson
+Project:	Graph
+
+I hereby declare that all code contained in this project was written solely by me.
+*/
+
 #include <iostream>
 #include "Set.h"
 
