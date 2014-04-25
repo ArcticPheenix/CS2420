@@ -132,10 +132,12 @@ void Graph::findShortestPath(int v)
 	allowedVertices->insert(v);
 	fspHelper(v, allowedVertices, distanceArray, v);
 
+	std::cout << "Vertex:Costs" << std::endl;
 	for (int i = 0; i < NUM_OF_NODES; ++i)
 	{
-		std::cout << distanceArray[i] << " ";
+		std::cout << i << ":" << distanceArray[i] << " ";
 	}
+	std::cout << std::endl;
 }
 
 void Graph::fspHelper(int v, Set* allowed, int* distanceArray, int previousVertex)
@@ -155,20 +157,17 @@ void Graph::fspHelper(int v, Set* allowed, int* distanceArray, int previousVerte
 			}
 			else if ((distanceArray[*asItr] == -1) && (previousVertex != v))
 			{
-				std::cout << "\nDebug: " << adjacencyMatrix[v][*asItr] << " " << distanceArray[previousVertex] << std::endl;
-				sum = 2 + adjacencyMatrix[v][*asItr] + distanceArray[previousVertex];
+				sum = adjacencyMatrix[v][*asItr] + distanceArray[v];
 				distanceArray[*asItr] = sum;
 			}
 			else
 			{
-				std::cout << "\nDebug: " << adjacencyMatrix[v][*asItr] << " " << distanceArray[previousVertex] << std::endl;
 				sum = adjacencyMatrix[v][*asItr] + distanceArray[previousVertex];
 				if (sum < distanceArray[*asItr]) { distanceArray[*asItr] = sum; }
 			}
 		}
 		else
 		{
-			std::cout << "\nDebug: " << adjacencyMatrix[v][*asItr] << " " << distanceArray[v] << std::endl;
 			sum = adjacencyMatrix[v][*asItr] + distanceArray[v];
 			if (sum < distanceArray[*asItr]) { distanceArray[*asItr] = sum; }
 		}
