@@ -28,3 +28,7 @@ bool Set::is_in(int n)
 	}
 	return false;
 }
+Iterator Set::begin()
+{
+	return l->begin();
+}

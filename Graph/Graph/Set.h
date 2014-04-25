@@ -11,5 +11,6 @@ public:
 	~Set();
 	void insert(int n);
 	bool is_in(int n);
+	Iterator begin();
 };
 #endif
